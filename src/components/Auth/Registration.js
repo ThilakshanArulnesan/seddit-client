@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import axios from 'axios';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
+import { register } from '../../actions/authActions';
+import { clearErrors } from '../../actions/errorActions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-
+import Alert from '@material-ui/lab/Alert';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
-
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Registration() {
+function Registration({ register, error, clearErrors }) {
   const classes = useStyles();
 
   const [values, setValues] = useState({
@@ -41,9 +41,23 @@ function Registration() {
     showPassword: false
   });
 
+  const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    if (error.id === 'REGISTER_FAIL') {
+      setErrorMsg(error.msg.msg);
+    } else {
+      setErrorMsg('');
+    }
+  }, [error]);
+
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(e.target);
+    console.log('sub');
+    let name = { firstName: values.firstName, lastName: values.lastName };
+
+    //attempt to register
+    register({ email: values.name, password: values.password, name });
   };
 
   const handleChange = prop => event => {
@@ -94,9 +108,19 @@ function Registration() {
             />
           </FormControl>
 
-          <Button variant='contained' color='primary'>
+          <Button variant='contained' color='primary' type='submit'>
             Register
           </Button>
+          {errorMsg && (
+            <Alert
+              onClose={() => {
+                clearErrors();
+              }}
+              severity='error'
+            >
+              {errorMsg}
+            </Alert>
+          )}
         </FormControl>
       </form>
     </>
@@ -104,7 +128,9 @@ function Registration() {
 }
 
 const mapStateToProps = state => ({
-  item: state.item //modify this
+  error: state.error
 });
 
-export default connect(mapStateToProps)(Registration);
+export default connect(mapStateToProps, { register, clearErrors })(
+  Registration
+);
