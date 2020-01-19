@@ -3,11 +3,13 @@ import { connect } from 'react-redux';
 import styles from './Navbar.module.scss';
 import { Link } from 'react-router-dom';
 
-function Navbar({ isAuthenticated }) {
+function Navbar({ isAuthenticated, user }) {
   return (
     <>
       <div className={styles.topNav}>
-        <p className={styles.welcome}>Hello name.firstName!</p>
+        <p className={styles.welcome}>
+          {user ? `Hello ${user.name.firstName}!` : `Please sign in`}
+        </p>
         <p className={styles.login}>
           {isAuthenticated ? (
             'Logout'
@@ -24,7 +26,8 @@ function Navbar({ isAuthenticated }) {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user
 });
 
 export default connect(mapStateToProps)(Navbar);
