@@ -5,7 +5,8 @@ import store from './store';
 import { loadUser } from './actions/authActions';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import LoginAndRegistration from './components/Login/Login';
+import Login from './components/Auth/Login';
+import Registration from './components/Auth/Registration';
 
 function App() {
   useEffect(() => {
@@ -20,10 +21,14 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path='/login'>
-            <LoginAndRegistration />
+            <Login />
           </Route>
+          <Route path='/register'>
+            <Registration />
+          </Route>
+
           <Route path='/users'>
-            <LoginAndRegistration />
+            <Login />
           </Route>
           <Route path='/'></Route>
         </Switch>

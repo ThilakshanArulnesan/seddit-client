@@ -9,7 +9,7 @@ function Navbar() {
       <div className={styles.topNav}>
         <p className={styles.welcome}>Hello name.firstName!</p>
         <p className={styles.login}>
-          <Link to='/login'> Login | Register </Link>
+          <Link to='/login'>Login</Link> | <Link to='/register'>Register</Link>
         </p>
       </div>
     </>
