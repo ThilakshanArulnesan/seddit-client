@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import styles from './Navbar.scss';
+import styles from './Navbar.module.scss';
 
 function Navbar() {
   return (
     <>
-      <span>Hello name.firstName!</span>
-      <span>Login | Logout</span>
+      <div className={styles.topNav}>
+        <p className={styles.welcome}>Hello name.firstName!</p>
+        <p className={styles.login}>Login | Logout</p>
+      </div>
     </>
   );
 }
