@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import styles from './Navbar.module.scss';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
   return (
     <>
       <div className={styles.topNav}>
         <p className={styles.welcome}>Hello name.firstName!</p>
-        <p className={styles.login}>Login | Logout</p>
+        <p className={styles.login}>
+          <Link to='/login'> Login | Register </Link>
+        </p>
       </div>
     </>
   );
