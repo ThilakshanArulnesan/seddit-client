@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
 import { register } from '../../actions/authActions';
 import { clearErrors } from '../../actions/errorActions';
+import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
@@ -30,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Registration({ register, error, clearErrors }) {
+function Registration({ register, error, clearErrors, isAuthenticated }) {
   const classes = useStyles();
 
   const [values, setValues] = useState({
@@ -42,6 +43,14 @@ function Registration({ register, error, clearErrors }) {
   });
 
   const [errorMsg, setErrorMsg] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log("we're good, redirect now");
+      history.push('/');
+    }
+  }, [isAuthenticated, history]);
 
   useEffect(() => {
     if (error.id === 'REGISTER_FAIL') {
@@ -53,11 +62,12 @@ function Registration({ register, error, clearErrors }) {
 
   const handleSubmit = e => {
     e.preventDefault();
+    clearErrors();
     console.log('sub');
     let name = { firstName: values.firstName, lastName: values.lastName };
 
     //attempt to register
-    register({ email: values.name, password: values.password, name });
+    register({ email: values.email, password: values.password, name });
   };
 
   const handleChange = prop => event => {
@@ -81,7 +91,7 @@ function Registration({ register, error, clearErrors }) {
           noValidate
           autoComplete='off'
         >
-          <h1 style={{ 'text-align': 'center' }}>Registration</h1>
+          <h1 style={{ textAlign: 'center' }}>Registration</h1>
           <TextField label='First Name' onChange={handleChange('firstName')} />
           <TextField label='Last Name' onChange={handleChange('lastName')} />
           <TextField label='Email Name' onChange={handleChange('email')} />
@@ -128,9 +138,11 @@ function Registration({ register, error, clearErrors }) {
 }
 
 const mapStateToProps = state => ({
-  error: state.error
+  error: state.error,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { register, clearErrors })(
-  Registration
-);
+export default connect(mapStateToProps, {
+  register,
+  clearErrors
+})(Registration);
