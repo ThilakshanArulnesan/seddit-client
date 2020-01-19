@@ -28,6 +28,11 @@ export const loadUser = () => (dispatch, getState) => {
       dispatch({ type: AUTH_ERROR });
     });
 };
+//Logout
+export const logout = () => dispatch => {
+  dispatch({ type: LOGOUT_SUCCESS });
+};
+
 //Register user
 export const register = ({ name, email, password }) => dispatch => {
   //headers

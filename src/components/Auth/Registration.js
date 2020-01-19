@@ -47,7 +47,6 @@ function Registration({ register, error, clearErrors, isAuthenticated }) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      console.log("we're good, redirect now");
       history.push('/');
     }
   }, [isAuthenticated, history]);

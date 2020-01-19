@@ -2,8 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from './Navbar.module.scss';
 import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { logout } from '../../actions/authActions';
 
-function Navbar({ isAuthenticated, user }) {
+function Navbar({ isAuthenticated, user, logout }) {
+  const handleLogout = e => {
+    logout();
+  };
   return (
     <>
       <div className={styles.topNav}>
@@ -12,7 +17,9 @@ function Navbar({ isAuthenticated, user }) {
         </p>
         <p className={styles.login}>
           {isAuthenticated ? (
-            'Logout'
+            <Button onClick={handleLogout} className={styles.logout}>
+              Logout
+            </Button>
           ) : (
             <>
               <Link to='/login'>Login</Link> |
@@ -30,4 +37,4 @@ const mapStateToProps = state => ({
   user: state.auth.user
 });
 
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);
