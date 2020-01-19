@@ -12,21 +12,25 @@ function Navbar({ isAuthenticated, user, logout }) {
   return (
     <>
       <div className={styles.topNav}>
-        <p className={styles.welcome}>
-          {user ? `Hello ${user.name.firstName}!` : `Please sign in`}
-        </p>
-        <p className={styles.login}>
-          {isAuthenticated ? (
-            <Button onClick={handleLogout} className={styles.logout}>
-              Logout
-            </Button>
-          ) : (
-            <>
-              <Link to='/login'>Login</Link> |
-              <Link to='/register'>Register</Link>
-            </>
-          )}
-        </p>
+        <p> S E D D I T</p>
+
+        <div className={styles.login}>
+          <span className={styles.buttons}>
+            {user && user.name ? `Hello ${user.name.firstName}!  ` : ``}
+          </span>
+          <span className={styles.buttons}>
+            {isAuthenticated ? (
+              <Button onClick={handleLogout} className={styles.logout}>
+                Logout
+              </Button>
+            ) : (
+              <>
+                <Link to='/login'>Login</Link> |
+                <Link to='/register'>Register</Link>
+              </>
+            )}
+          </span>
+        </div>
       </div>
     </>
   );

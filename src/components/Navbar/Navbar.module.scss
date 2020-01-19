@@ -9,7 +9,17 @@
   color: $color1;
   background-color: $color4;
 
-  .logout {
+  .logout,
+  .login {
     padding: 0em;
+    > * {
+      padding: 0em;
+    }
+  }
+
+  .buttons {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 0rem 0rem 0rem;
   }
 }

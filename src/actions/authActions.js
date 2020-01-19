@@ -29,8 +29,31 @@ export const loadUser = () => (dispatch, getState) => {
     });
 };
 //Logout
-export const logout = () => dispatch => {
-  dispatch({ type: LOGOUT_SUCCESS });
+export const logout = () => {
+  return { type: LOGOUT_SUCCESS };
+};
+
+//Login user
+export const login = ({ email, password }) => dispatch => {
+  //headers
+  const config = { headers: { 'Content-type': 'application/json' } };
+
+  //Request body
+  const body = JSON.stringify({ email, password });
+
+  axios
+    .post('/auth', body, config)
+    .then(res => {
+      dispatch({ type: CLEAR_ERRORS });
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      console.log(err);
+      dispatch({ type: LOGIN_FAIL });
+      dispatch(
+        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL')
+      );
+    });
 };
 
 //Register user
@@ -48,6 +71,7 @@ export const register = ({ name, email, password }) => dispatch => {
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
     })
     .catch(err => {
+      console.log(err);
       dispatch({ type: REGISTER_FAIL });
       dispatch(
         returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL')

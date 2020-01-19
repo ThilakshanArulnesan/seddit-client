@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
 import IconButton from '@material-ui/core/IconButton';
+import { login } from '../../actions/authActions';
+import { clearErrors } from '../../actions/errorActions';
+import { useHistory } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-
+import Alert from '@material-ui/lab/Alert';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
-
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-
-import axios from 'axios';
 
 import Button from '@material-ui/core/Button';
 
@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Login() {
+function Login({ login, error, clearErrors, isAuthenticated }) {
   const classes = useStyles();
 
   const [values, setValues] = useState({
@@ -40,9 +40,29 @@ function Login() {
     showPassword: false
   });
 
+  const [errorMsg, setErrorMsg] = useState('');
+  const history = useHistory();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push('/');
+    }
+  }, [isAuthenticated, history]);
+
+  useEffect(() => {
+    if (error.id === 'LOGIN_FAIL') {
+      setErrorMsg(error.msg.msg);
+    } else {
+      setErrorMsg('');
+    }
+  }, [error]);
+
   const handleSubmit = e => {
     e.preventDefault();
-    console.log(e.target);
+    clearErrors();
+
+    //attempt to login
+    login({ email: values.email, password: values.password });
   };
 
   const handleChange = prop => event => {
@@ -68,11 +88,7 @@ function Login() {
         >
           <h1 style={{ textAlign: 'center' }}>Login</h1>
 
-          <TextField
-            id='standard-basic'
-            label='Email Name'
-            onChange={handleChange('email')}
-          />
+          <TextField label='Email Name' onChange={handleChange('email')} />
           <FormControl className={clsx(classes.margin, classes.textField)}>
             <InputLabel htmlFor='standard-adornment-password'>
               Password
@@ -99,6 +115,16 @@ function Login() {
           <Button variant='contained' color='primary' type='submit'>
             Login
           </Button>
+          {errorMsg && (
+            <Alert
+              onClose={() => {
+                clearErrors();
+              }}
+              severity='error'
+            >
+              {errorMsg}
+            </Alert>
+          )}
         </FormControl>
       </form>
     </>
@@ -106,7 +132,11 @@ function Login() {
 }
 
 const mapStateToProps = state => ({
-  item: state.item //modify this
+  error: state.error,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps, {
+  login,
+  clearErrors
+})(Login);
