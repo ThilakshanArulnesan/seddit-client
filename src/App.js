@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import Navbar from './components/Navbar/Navbar';
-import { Provider } from 'react-redux';
-import store from './store';
-import { loadUser } from './actions/authActions';
+import React, { useEffect } from "react";
+import Navbar from "./components/Navbar/Navbar";
+import { Provider } from "react-redux";
+import store from "./store";
+import { loadUser } from "./actions/authActions";
 
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Login from './components/Auth/Login';
-import Registration from './components/Auth/Registration';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Login from "./components/Auth/Login";
+import Registration from "./components/Auth/Registration";
+import Main from "./components/MainPage/Main";
 
 function App() {
   useEffect(() => {
@@ -20,17 +21,22 @@ function App() {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path='/login'>
+          <Route path="/login">
             <Login />
           </Route>
-          <Route path='/register'>
+          <Route path="/register">
             <Registration />
           </Route>
 
-          <Route path='/users'>
+          <Route path="/users">
             <Login />
           </Route>
-          <Route path='/'></Route>
+          <Route path="/create">
+            <Main />
+          </Route>
+          <Route path="/">
+            <Main />
+          </Route>
         </Switch>
       </Router>
     </Provider>
