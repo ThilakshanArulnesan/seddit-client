@@ -1,13 +1,20 @@
 import React from "react";
 import styles from "./Main.module.scss";
+import { connect } from "react-redux";
 
-export default function Main() {
+const mapStateToProps = state => ({
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+const connector = connect(mapStateToProps);
+
+const Main = ({ isAuthenticated }) => {
   return (
     <div id={styles.pageContainer}>
       <div class={styles.header}>
-        <a href="/create">Create a post</a>
+        {isAuthenticated && <a href="/create">Create a post</a>}
       </div>
-      Hellos
     </div>
   );
-}
+};
+export default connector(Main);

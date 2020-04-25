@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Registration from "./components/Auth/Registration";
 import Main from "./components/MainPage/Main";
+import CreatePost from "./components/CreatePost/CreatePost";
 
 function App() {
   useEffect(() => {
@@ -32,7 +33,7 @@ function App() {
             <Login />
           </Route>
           <Route path="/create">
-            <Main />
+            <CreatePost />
           </Route>
           <Route path="/">
             <Main />
