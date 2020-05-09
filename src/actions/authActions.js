@@ -1,4 +1,4 @@
-import { returnErrors } from "./errorActions";
+import { returnErrors } from './errorActions';
 import {
   USER_LOADING,
   USER_LOADED,
@@ -9,9 +9,9 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   CLEAR_ERRORS,
-} from "./types";
+} from './types';
 
-import axios from "axios";
+import axios from 'axios';
 
 //Check token & load user
 
@@ -19,7 +19,7 @@ export const loadUser = () => (dispatch, getState) => {
   dispatch({ type: USER_LOADING });
   const config = tokenConfig(getState);
   axios
-    .get("/auth/user", config)
+    .get('/auth/user', config)
     .then((res) => {
       dispatch({ type: USER_LOADED, payload: res.data });
     })
@@ -36,13 +36,13 @@ export const logout = () => {
 //Login user
 export const login = ({ email, password }) => (dispatch) => {
   //headers
-  const config = { headers: { "Content-type": "application/json" } };
+  const config = { headers: { 'Content-type': 'application/json' } };
 
   //Request body
   const body = JSON.stringify({ email, password });
 
   axios
-    .post("/auth", body, config)
+    .post('/auth', body, config)
     .then((res) => {
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
@@ -51,7 +51,7 @@ export const login = ({ email, password }) => (dispatch) => {
       console.log(err);
       dispatch({ type: LOGIN_FAIL });
       dispatch(
-        returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
+        returnErrors(err.response.data, err.response.status, 'LOGIN_FAIL'),
       );
     });
 };
@@ -59,13 +59,13 @@ export const login = ({ email, password }) => (dispatch) => {
 //Register user
 export const register = ({ name, email, password }) => (dispatch) => {
   //headers
-  const config = { headers: { "Content-type": "application/json" } };
+  const config = { headers: { 'Content-type': 'application/json' } };
 
   //Request body
   const body = JSON.stringify({ name, email, password });
 
   axios
-    .post("/users", body, config)
+    .post('/users', body, config)
     .then((res) => {
       dispatch({ type: CLEAR_ERRORS });
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
@@ -74,7 +74,7 @@ export const register = ({ name, email, password }) => (dispatch) => {
       console.log(err);
       dispatch({ type: REGISTER_FAIL });
       dispatch(
-        returnErrors(err.response.data, err.response.status, "REGISTER_FAIL")
+        returnErrors(err.response.data, err.response.status, 'REGISTER_FAIL'),
       );
     });
 };
@@ -88,14 +88,14 @@ export const tokenConfig = (getState) => {
   const config = {
     headers: {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
       },
     },
   };
 
   // If token, add to headers
   if (token) {
-    config.headers["x-auth-token"] = token;
+    config.headers['x-auth-token'] = token;
   }
   return config;
 };

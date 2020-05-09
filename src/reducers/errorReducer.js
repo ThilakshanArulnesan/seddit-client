@@ -1,4 +1,4 @@
-import { CLEAR_ERRORS, GET_ERRORS } from "../actions/types"; //Types of actions
+import { CLEAR_ERRORS, GET_ERRORS } from '../actions/types'; //Types of actions
 
 const initalState = {
   message: {},

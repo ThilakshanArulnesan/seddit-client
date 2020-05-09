@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import Navbar from "./components/Navbar/Navbar";
-import { Provider } from "react-redux";
-import store from "./store";
-import { loadUser } from "./actions/authActions";
+import React, { useEffect } from 'react';
+import Navbar from './components/Navbar/Navbar';
+import { Provider } from 'react-redux';
+import store from './store';
+import { loadUser } from './actions/authActions';
 
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Login from "./components/Auth/Login";
-import Registration from "./components/Auth/Registration";
-import Main from "./components/MainPage/Main";
-import CreatePost from "./components/CreatePost/CreatePost";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from './components/Auth/Login';
+import Registration from './components/Auth/Registration';
+import Main from './components/MainPage/Main';
+import CreatePost from './components/CreatePost/CreatePost';
 
 function App() {
   useEffect(() => {

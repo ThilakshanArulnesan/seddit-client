@@ -1,22 +1,28 @@
-import axios from "axios";
-import { CREATE_POST, DELETE_POST } from "./types"; //Types of actions
-import { tokenConfig } from "../actions/authActions";
+import axios from 'axios';
+import { CREATE_POST, DELETE_POST } from './types'; //Types of actions
+import { tokenConfig } from '../actions/authActions';
 //Dispatches actions with proper payloads
-export const createPost = body => (dispatch, getState) => {
-  axios.post("/posts", body, tokenConfig(getState)).then(res =>
+export const createPost = (body) => (dispatch, getState) => {
+  axios.post('/posts', body, tokenConfig(getState)).then((res) =>
     dispatch({
       type: CREATE_POST,
-      payload: res.data
-    })
+      payload: res.data,
+    }),
   );
 };
 
-export const deletePost = id => dispatch => {
-  axios.delete(`/items/${id}`).then(res =>
+export const getPosts = () => (dispatch, getState) => {
+  axios.get('/posts', tokenConfig(getState)).then((res) => {
+    console.log(res.data);
+  });
+};
+
+export const deletePost = (id) => (dispatch) => {
+  axios.delete(`/items/${id}`).then((res) =>
     dispatch({
       type: DELETE_POST,
-      payload: id
-    })
+      payload: id,
+    }),
   );
 };
 
