@@ -1,13 +1,15 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import styles from "./CreatePost.module.scss";
 import Button from "@material-ui/core/Button/Button";
+import { createPost } from "../../actions/postActions";
 
-export default function CreatePost() {
+const CreatePost = ({ createPost }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const handleSubmit = () => {
-    console.log(title, body);
-    // TO DO : Send post request.
+    console.log("hello");
+    createPost({ name: title });
   };
 
   return (
@@ -38,4 +40,13 @@ export default function CreatePost() {
       <div className={styles.warningText}>Please enter a title and body</div>
     </div>
   );
-}
+};
+
+const mapStateToProps = state => ({
+  error: state.error,
+  isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {
+  createPost
+})(CreatePost);

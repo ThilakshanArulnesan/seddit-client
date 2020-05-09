@@ -18,7 +18,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 import Button from "@material-ui/core/Button";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     "align-items": "center",
@@ -26,9 +26,9 @@ const useStyles = makeStyles((theme) => ({
     height: "80vh",
     "& > *": {
       margin: theme.spacing(1),
-      width: 400,
-    },
-  },
+      width: 400
+    }
+  }
 }));
 
 function Registration({ register, error, clearErrors, isAuthenticated }) {
@@ -39,7 +39,7 @@ function Registration({ register, error, clearErrors, isAuthenticated }) {
     firstName: "",
     lastName: "",
     password: "",
-    showPassword: false,
+    showPassword: false
   });
 
   const [errorMsg, setErrorMsg] = useState("");
@@ -59,17 +59,16 @@ function Registration({ register, error, clearErrors, isAuthenticated }) {
     }
   }, [error]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     clearErrors();
-    console.log("sub");
     let name = { firstName: values.firstName, lastName: values.lastName };
 
     //attempt to register
     register({ email: values.email, password: values.password, name });
   };
 
-  const handleChange = (prop) => (event) => {
+  const handleChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -77,7 +76,7 @@ function Registration({ register, error, clearErrors, isAuthenticated }) {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
-  const handleMouseDownPassword = (event) => {
+  const handleMouseDownPassword = event => {
     event.preventDefault();
   };
 
@@ -136,12 +135,12 @@ function Registration({ register, error, clearErrors, isAuthenticated }) {
   );
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   error: state.error,
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {
   register,
-  clearErrors,
+  clearErrors
 })(Registration);

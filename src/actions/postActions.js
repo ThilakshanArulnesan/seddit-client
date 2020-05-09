@@ -1,37 +1,27 @@
 import axios from "axios";
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from "./types"; //Types of actions
-
+import { CREATE_POST, DELETE_POST } from "./types"; //Types of actions
+import { tokenConfig } from "../actions/authActions";
 //Dispatches actions with proper payloads
-export const getItems = () => (dispatch) => {
-  dispatch(setItemsLoading());
-  axios.get("/api/items").then((res) =>
+export const createPost = body => (dispatch, getState) => {
+  axios.post("/posts", {}, tokenConfig(getState)).then(res =>
     dispatch({
-      type: GET_ITEMS,
-      payload: res.data,
+      type: CREATE_POST,
+      payload: res.data
     })
   );
 };
 
-export const addItem = (item) => (dispatch) => {
-  axios.post("/api/items", item).then((res) =>
+export const deletePost = id => dispatch => {
+  axios.delete(`/items/${id}`).then(res =>
     dispatch({
-      type: ADD_ITEM,
-      payload: res.data,
+      type: DELETE_POST,
+      payload: id
     })
   );
 };
 
-export const deleteItem = (id) => (dispatch) => {
-  axios.delete(`/api/items/${id}`).then((res) =>
-    dispatch({
-      type: DELETE_ITEM,
-      payload: id,
-    })
-  );
-};
-
-export const setItemsLoading = (item) => {
-  return {
-    type: ITEMS_LOADING,
-  };
-};
+// export const setItemsLoading = item => {
+//   return {
+//     type: ITEMS_LOADING
+//   };
+// };
