@@ -8,8 +8,7 @@ const CreatePost = ({ createPost }) => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const handleSubmit = () => {
-    console.log("hello");
-    createPost({ name: title });
+    createPost({ title, body });
   };
 
   return (
@@ -18,13 +17,12 @@ const CreatePost = ({ createPost }) => {
         <label htmlFor="title" className={styles.formLabel}>
           Post Title
         </label>
-        <input type="title" />
-        <label
-          htmlFor="title"
-          className={styles.formLabel}
+        <input
+          type="title"
           value={title}
           onChange={e => setTitle(e.target.value)}
-        >
+        />
+        <label htmlFor="body" className={styles.formLabel}>
           Body
         </label>
         <textarea

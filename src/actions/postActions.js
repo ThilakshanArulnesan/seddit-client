@@ -3,7 +3,7 @@ import { CREATE_POST, DELETE_POST } from "./types"; //Types of actions
 import { tokenConfig } from "../actions/authActions";
 //Dispatches actions with proper payloads
 export const createPost = body => (dispatch, getState) => {
-  axios.post("/posts", {}, tokenConfig(getState)).then(res =>
+  axios.post("/posts", body, tokenConfig(getState)).then(res =>
     dispatch({
       type: CREATE_POST,
       payload: res.data
