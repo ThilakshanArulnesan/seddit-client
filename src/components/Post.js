@@ -1,5 +1,5 @@
-import { tokenConfig } from '../actions/authActions';
-import { returnErrors } from '../actions/errorActions';
+import { tokenConfig } from "../actions/authActions";
+import { returnErrors } from "../actions/errorActions";
 
 /*
 Add .catch to all axios requests:

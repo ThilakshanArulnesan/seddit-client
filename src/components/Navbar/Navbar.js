@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import styles from './Navbar.module.scss';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import { logout } from '../../actions/authActions';
+import React from "react";
+import { connect } from "react-redux";
+import styles from "./Navbar.module.scss";
+import { Link } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { logout } from "../../actions/authActions";
 
 function Navbar({ isAuthenticated, user, logout }) {
-  const handleLogout = e => {
+  const handleLogout = (e) => {
     logout();
   };
   return (
@@ -25,8 +25,8 @@ function Navbar({ isAuthenticated, user, logout }) {
               </Button>
             ) : (
               <>
-                <Link to='/login'>Login</Link> |
-                <Link to='/register'>Register</Link>
+                <Link to="/login">Login</Link> |
+                <Link to="/register">Register</Link>
               </>
             )}
           </span>
@@ -36,9 +36,9 @@ function Navbar({ isAuthenticated, user, logout }) {
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { logout })(Navbar);
