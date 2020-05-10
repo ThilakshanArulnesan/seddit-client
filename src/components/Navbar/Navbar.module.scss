@@ -8,6 +8,10 @@
   font-size: large;
   color: $color1;
   background-color: $color4;
+  a {
+    text-decoration: none;
+    color: $color1;
+  }
 
   .logout,
   .login {

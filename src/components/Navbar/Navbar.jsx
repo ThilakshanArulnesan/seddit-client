@@ -1,9 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
-import styles from "./Navbar.module.scss";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import { logout } from "../../actions/authActions";
+import React from 'react';
+import { connect } from 'react-redux';
+import styles from './Navbar.module.scss';
+import { Link } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import { logout } from '../../actions/authActions';
 
 function Navbar({ isAuthenticated, user, logout }) {
   const handleLogout = (e) => {
@@ -12,11 +12,13 @@ function Navbar({ isAuthenticated, user, logout }) {
   return (
     <>
       <div className={styles.topNav}>
-        <p> S E D D I T</p>
+        <a href="/">
+          <p> S E D D I T</p>
+        </a>
 
         <div className={styles.login}>
           <span className={styles.buttons}>
-            {user && user.name ? `Hello ${user.name.firstName}!  ` : ``}
+            {user && user.name ? `Hello ${user.name.firstName}!  |` : ``}
           </span>
           <span className={styles.buttons}>
             {isAuthenticated ? (
