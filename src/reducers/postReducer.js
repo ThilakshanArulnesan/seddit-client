@@ -1,7 +1,7 @@
-import { CREATE_POST, DELETE_POST } from '../actions/types'; //Types of actions
+import { CREATE_POST, DELETE_POST, GET_POSTS } from '../actions/types'; //Types of actions
 
 const initalState = {
-  items: [],
+  posts: [],
 };
 
 export default function (state = initalState, action) {
@@ -9,12 +9,17 @@ export default function (state = initalState, action) {
     case CREATE_POST:
       return {
         ...state,
-        items: action.payload,
+        posts: action.payload,
+      };
+    case GET_POSTS:
+      return {
+        ...state,
+        posts: action.payload,
       };
     case DELETE_POST: {
       return {
         ...state,
-        items: state.items.filter((item) => item._id !== action.payload),
+        posts: state.posts.filter((item) => item._id !== action.payload),
       };
     }
     default: {

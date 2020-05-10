@@ -7,7 +7,7 @@ import authReducer from './authReducer.js'; //personal reducer
 
 //Combines reducers:
 export default combineReducers({
-  post: postReducer,
+  posts: postReducer,
   error: errorReducer,
   auth: authReducer,
 });
