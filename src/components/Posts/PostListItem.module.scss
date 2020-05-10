@@ -1,4 +1,36 @@
 .postContainer {
-  border: 3px red solid;
+  border: 1px red solid;
   margin: 10px;
+  padding: 0em 1em;
+
+  .title {
+    border: 1px red solid;
+    margin: 0;
+  }
+
+  .postMetaData {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    > * {
+      margin: 0 1em;
+    }
+    :first-child {
+      margin-left: 0;
+    }
+    .date {
+      border: 1px blue solid;
+      display: inline;
+      font-size: 0.5em;
+      color: red;
+    }
+    .submittedBy {
+      border: 1px blue solid;
+      // margin: 0em 1em;
+      display: inline;
+      font-size: 0.5em;
+      color: red;
+    }
+  }
 }
