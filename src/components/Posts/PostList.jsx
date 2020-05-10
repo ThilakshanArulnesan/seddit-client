@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
 const connector = connect(mapStateToProps);
 
 const PostList = ({ posts }) => {
+  //   return <div>hello</div>;
   return posts.map((post) => <PostListItem post={post} />);
 };
 
